@@ -1,0 +1,16 @@
+PATH
+  remote: .
+  specs:
+    tcc (0.1.0)
+      ffi (~> 1.9.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    ffi (1.9.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  tcc!

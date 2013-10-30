@@ -1,0 +1,5 @@
+# Temp files in ext/tcc
+/ext/tcc/Makefile
+/ext/tcc/tcc-*.tar.bz2
+/ext/tcc/build/
+/*.gem
