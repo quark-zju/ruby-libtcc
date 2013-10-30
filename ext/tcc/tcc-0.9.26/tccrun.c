@@ -88,6 +88,11 @@ LIBTCCAPI int tcc_relocate(TCCState *s1, void *ptr)
     return ret;
 }
 
+/* Same as `tcc_relocate(s1, TCC_RELOCATE_AUTO)` */
+LIBTCCAPI int tcc_relocate_auto(TCCState *s1) {
+    return tcc_relocate(s1, TCC_RELOCATE_AUTO);
+}
+
 /* launch the compiled program with the given arguments */
 LIBTCCAPI int tcc_run(TCCState *s1, int argc, char **argv)
 {

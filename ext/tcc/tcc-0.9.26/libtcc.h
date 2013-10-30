@@ -90,6 +90,9 @@ LIBTCCAPI int tcc_relocate(TCCState *s1, void *ptr);
    returns -1 if error. */
 #define TCC_RELOCATE_AUTO (void*)1
 
+/* Same as `tcc_relocate(s1, TCC_RELOCATE_AUTO)` */
+LIBTCCAPI int tcc_relocate_auto(TCCState *s1);
+
 /* return symbol value or NULL if not found */
 LIBTCCAPI void *tcc_get_symbol(TCCState *s, const char *name);
 
