@@ -1,0 +1,11 @@
+language: ruby
+branches:
+  only:
+    - master
+rvm:
+  - 2.0.0
+  - jruby-19mode
+  - rbx-2.1.1
+script:
+  - pushd ext/tcc && ruby extconf.rb && make && popd
+  - rake spec

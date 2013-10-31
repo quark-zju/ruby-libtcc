@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'tcc'
-  s.version = '0.1.0'
+  s.version = '0.1.1'
   s.summary = 'libtcc (library of Tiny C Compiler) wrapper.'
   s.description = 'Tiny C Compiler is a small and fast C compiler, which makes C behavor like a script language. This is the Ruby wrapper for its library, libtcc.'
   s.authors = ['Jun Wu', 'TinyCC develoeprs']
@@ -12,4 +12,5 @@ Gem::Specification.new do |s|
   s.files += Dir.glob('ext/tcc/tcc-0.9.26/**/*')
   s.extensions = %w[ext/tcc/extconf.rb]
   s.add_dependency 'ffi', '~> 1.9.0'
+  s.add_development_dependency 'rspec', '~> 2.14.1'
 end

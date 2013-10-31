@@ -6,9 +6,8 @@ module TCC
   extend FFI::Library
 
   # Find libtcc.so
-  lib_paths = [File.join(File.dirname(caller[0]), '../ext/tcc/build/lib'), '/usr/lib', '/usr/local/lib']
-  libtcc_path = lib_paths.product(%w(libtcc.so libtcc1.so)).map {|*names| File.join(*names)}.find {|path| File.exists?(path)}
-  raise "Can not find libtcc.so" unless libtcc_path
+  libtcc_path = File.join(File.dirname(caller[0]), '../ext/tcc/build/lib/libtcc.so')
+  raise "Can not find libtcc.so. This gem is probably not built probably." unless File.exists?(libtcc_path)
   ffi_lib libtcc_path
 
   OUTPUT_MEMORY = 0
