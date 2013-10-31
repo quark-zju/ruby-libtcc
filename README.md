@@ -1,5 +1,6 @@
 libtcc-ruby
 ===========
+[![Build Status](https://travis-ci.org/quark-zju/ruby-libtcc.png?branch=master)](https://travis-ci.org/quark-zju/ruby-libtcc)
 
 [Ruby](http://www.ruby-lang.org/) wrapper for the library provided by [Tiny C Compiler (TCC)](http://bellard.org/tcc/).
 
