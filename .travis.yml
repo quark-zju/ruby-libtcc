@@ -8,4 +8,4 @@ rvm:
   - ruby-head
 script:
   - pushd ext/tcc && ruby extconf.rb && make && popd
-  - rake spec
+  - bundle exec rspec
