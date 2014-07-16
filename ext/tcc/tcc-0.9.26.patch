@@ -1,3 +1,68 @@
+diff --git a/Makefile b/Makefile
+index 705b585..69c80ee 100644
+--- a/Makefile
++++ b/Makefile
+@@ -134,7 +134,7 @@ PROGS+=$(PROGS_CROSS)
+ TCCLIBS+=$(LIBTCC1_CROSS)
+ endif
+ 
+-all: $(PROGS) $(TCCLIBS) $(TCCDOCS)
++all: $(PROGS) $(TCCLIBS)
+ 
+ # Host Tiny C Compiler
+ tcc$(EXESUF): tcc.o $(LIBTCC)
+@@ -217,7 +217,7 @@ INSTALLBIN=$(INSTALL)
+ endif
+ 
+ ifndef CONFIG_WIN32
+-install: $(PROGS) $(TCCLIBS) $(TCCDOCS)
++install: $(PROGS) $(TCCLIBS)
+ 	mkdir -p "$(bindir)"
+ ifeq ($(CC),tcc)
+ 	$(INSTALL) -m755 $(PROGS) "$(bindir)"
+@@ -225,9 +225,7 @@ else
+ 	$(INSTALLBIN) -m755 $(PROGS) "$(bindir)"
+ endif
+ 	mkdir -p "$(mandir)/man1"
+-	-$(INSTALL) tcc.1 "$(mandir)/man1"
+ 	mkdir -p "$(infodir)"
+-	-$(INSTALL) tcc-doc.info "$(infodir)"
+ 	mkdir -p "$(tccdir)"
+ 	mkdir -p "$(tccdir)/include"
+ ifneq ($(LIBTCC1),)
+@@ -243,7 +241,6 @@ endif
+ 	mkdir -p "$(includedir)"
+ 	$(INSTALL) -m644 $(top_srcdir)/libtcc.h "$(includedir)"
+ 	mkdir -p "$(docdir)"
+-	-$(INSTALL) -m644 tcc-doc.html "$(docdir)"
+ ifdef CONFIG_CROSS
+ 	mkdir -p "$(tccdir)/win32/lib/32"
+ 	mkdir -p "$(tccdir)/win32/lib/64"
+@@ -263,7 +260,6 @@ uninstall:
+ 	rm -fv $(foreach P,$(PROGS),"$(bindir)/$P")
+ 	rm -fv $(foreach P,$(LIBTCC1),"$(tccdir)/$P")
+ 	rm -fv $(foreach P,$(TCC_INCLUDES),"$(tccdir)/include/$P")
+-	rm -fv "$(docdir)/tcc-doc.html" "$(mandir)/man1/tcc.1" "$(infodir)/tcc-doc.info"
+ 	rm -fv "$(libdir)/$(LIBTCC)" "$(includedir)/libtcc.h"
+ 	rm -fv "$(libdir)/libtcc.so*"
+ 	rm -rf "$(tccdir)/win32"
+@@ -273,7 +269,7 @@ ifeq ($(ARCH),x86-64)
+ endif
+ else
+ # on windows
+-install: $(PROGS) $(TCCLIBS) $(TCCDOCS)
++install: $(PROGS) $(TCCLIBS)
+ 	mkdir -p "$(tccdir)"
+ 	mkdir -p "$(tccdir)/lib"
+ 	mkdir -p "$(tccdir)/include"
+@@ -285,7 +281,6 @@ install: $(PROGS) $(TCCLIBS) $(TCCDOCS)
+ 	cp -r win32/include/. "$(tccdir)/include"
+ 	cp -r win32/examples/. "$(tccdir)/examples"
+ 	$(INSTALL) -m644 $(addprefix include/,$(TCC_INCLUDES)) "$(tccdir)/include"
+-	$(INSTALL) -m644 tcc-doc.html win32/tcc-win32.txt "$(tccdir)/doc"
+ 	$(INSTALL) -m644 $(LIBTCC) libtcc.h "$(tccdir)/libtcc"
+ ifdef CONFIG_CROSS
+ 	mkdir -p "$(tccdir)/lib/32"
 diff --git a/libtcc.h b/libtcc.h
 index e69cc6b..e5bd314 100644
 --- a/libtcc.h

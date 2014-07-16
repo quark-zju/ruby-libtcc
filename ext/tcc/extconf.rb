@@ -1,16 +1,29 @@
-File.write 'Makefile', <<"EOS"
-.PHONY: default clean clean-all install
+configure_opts = ["--prefix='#{Dir.pwd}/build'", '--disable-static']
 
-default: build/lib/libtcc.so clean
+# detect cygwin and find the correct compiler
+is_cygwin = RUBY_PLATFORM['cygwin']
+if is_cygwin
+  gcc_path = ENV['PATH'].split(':').map{|x| Dir["#{x}/{i686-pc-mingw32-gcc,mingw32-gcc}"]}.flatten.first
+  raise "Cannot find mingw32-gcc" unless gcc_path
+  gcc_prefix = File.basename(gcc_path).gsub(/gcc$/, '')
+  configure_opts += ['--enable-cygwin', "--cross-prefix=#{gcc_prefix}"]
+end
+
+
+File.write 'Makefile', <<"EOS"
+.PHONY: default clean build clean-all install
+
+default: build clean
 
 clean:
-	-cd tcc-0.9.26/ && make clean
+	-@cd tcc-0.9.26/ && make clean
 
 clean-all: clean
-	-rm -rf build/ tcc-0.9.26/ tcc-0.9.26.tar.bz2
+	-@rm -rf build/ tcc-0.9.26/ tcc-0.9.26.tar.bz2
 
-build/lib/libtcc.so: tcc-0.9.26
-	cd tcc-0.9.26/ && ./configure --prefix=#{Dir.pwd}/build --disable-static && make install
+build: tcc-0.9.26
+	cd tcc-0.9.26/ && ./configure #{configure_opts.join(' ')} && make install
+	-@chmod go+x build/lib/libtcc.so build/libtcc/libtcc.so.1.0
 
 install:
 
